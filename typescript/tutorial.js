@@ -12,6 +12,7 @@ let ids: number[] = [1, 2, 3, 4, 5];
 
 
 //*Defines the value as any of the type
+//*Use this in the most critical scenario
 let ex: any = "Pedro";
 let xArr: any[] = ["Pedro", 0, true];
 
@@ -20,6 +21,8 @@ const b = "World";
 
 (a: string, b: string) defines the value to be expected in the function which in this case is string
 (:string) defines the return type of the functions
+
+
 const concatenateValues = (a: string, b: string): string => {
   return a + b;
 };
@@ -28,19 +31,114 @@ console.log(concatenateValues("Hello", "World")); //Hello Wrold
 console.log(concatenateValues("5", "10")); //15
 
 */
+/*
+//! Interfaces and Types
+
+// (?) - Defines the optional type and will return a value or undefined
+interface UserInterface {
+  id: number;
+  name: string;
+  age?: number; // returns number or undefined
+
+  greet(message: string): void;
+}
+
 //Follows the roadmap or blueprint from the UserInterface interface
-var User = {
-    id: 2,
-    name: "Pedro",
-    greet: function (message) {
-        console.log(message);
-    },
+const User: UserInterface = {
+  id: 2,
+  name: "Pedro",
+  greet(message) {
+    console.log(message);
+  },
 };
-//Defines the type for objects
+
+//*Defines the type for objects
+
 if (!User.age) {
-    console.log("User has no age");
+  console.log("User has no age");
+} else {
+  console.log(User.age);
 }
-else {
-    console.log(User.age);
+
+//console.log(User.greet("Hello"));
+
+interface ProductInterface {
+  id: number;
+  name: string;
+  price: number;
 }
-console.log(User.greet("Hello"));
+
+const Product: ProductInterface = {
+  id: 1,
+  name: "Magnolia Chicken",
+  price: 500,
+};
+*/
+/*
+//! Union = Combines multilple types
+//Defining your own types
+type IdFieldType = string | number; //can be reusable in your entire project
+
+const printID = (id: IdFieldType) => {
+  console.log(`ID:${id}`);
+};
+
+printID("123");
+printID(1234);
+
+//!Intersecting two types
+//Means combining types
+//type combinedType = Type1 & Type2;
+
+interface BusinessPartner {
+  name: string;
+  creditScore: number;
+}
+
+interface UserIdentity {
+  id: number;
+  email: string;
+}
+
+type Employee = BusinessPartner & UserIdentity;
+
+const signContract = (employee: Employee) => {
+  console.log(
+    "Contract signed by :" + employee.name + " with email : " + employee.email
+  );
+};
+
+signContract({
+  name: "Windyl",
+  creditScore: 500,
+  id: 1,
+  email: "windylmonton@gmail.com",
+});
+*/
+//!Enums
+//Used to define named constants
+//Implements code reusability
+//they are different types of errors
+// unauthorized , user doesn't exist , wrong credentials , internal server error
+var LogInError;
+(function (LogInError) {
+    LogInError["Unauthorized"] = "unauthorize";
+    LogInError["NoUser"] = "no user";
+    LogInError["WrongCredentials"] = "wrongcredentials";
+    LogInError["Internal"] = "Internal";
+})(LogInError || (LogInError = {}));
+var printErrorMsg = function (error) {
+    if (error === LogInError.Unauthorized) {
+        console.log("User not authorized");
+    }
+    else if (error === LogInError.NoUser) {
+        console.log("No User Was Found");
+    }
+    else if (error === LogInError.WrongCredentials) {
+        console.log("Wrong username/password");
+    }
+    else {
+        console.log("Internal Server Error");
+    }
+};
+printErrorMsg(LogInError.NoUser);

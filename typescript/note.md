@@ -1,6 +1,5 @@
-
 Coding along with : https://www.youtube.com/watch?v=3mDny9XAgic&t=1172s
-
+time : 22:16
 Intallation:
 npm install -g typescript
 
